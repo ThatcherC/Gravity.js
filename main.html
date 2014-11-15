@@ -1,0 +1,37 @@
+<html>
+	<head>
+		<title>Gravity Toy</title>
+		<script src="Gravity.js"></script>
+		<script src="Particle.js"></script>
+		<script>
+			var interval;
+			
+			function start(){
+				interval = window.setInterval("main();",100);
+			}
+			
+			function stop(){
+				clearInterval(interval);
+			}
+			
+			function generateProto(){
+				for (var i = 0; i < 100; i++){
+					var rand = Math.random()*2*Math.PI;
+					var rand2 = Math.random();
+					var x = (100*rand2)*Math.cos(rand);
+					var y = (100*rand2)*Math.sin(rand);
+					var mag = Math.sqrt(x*x+y*y);
+					var particle = new Particle(1000, width/2+x, height/2+y, y*(mag/70), -x*(mag/70));
+					particleList.push(particle);
+				}
+			}
+		</script>
+	</head>
+	<body onload = "init();" style="background-color:black">
+		<canvas id="canvas"></canvas>
+		<input type="button" value="Start" onclick="start()">
+		<input type="button" value="Stop" onclick="stop()">
+		<input type="button" value="Protodisk" onclick="generateProto()">
+		<input type="button" value="Clear" onclick="clear()">
+	</body>
+</html>
