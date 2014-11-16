@@ -7,11 +7,14 @@
 			var interval;
 			
 			function start(){
-				interval = window.setInterval("main();",100);
+				if(interval = -1){
+					interval = window.setInterval("main();",100);
+				}
 			}
 			
 			function stop(){
 				clearInterval(interval);
+				interval = -1;
 			}
 			
 			function generateProto(){
@@ -25,6 +28,10 @@
 					particleList.push(particle);
 				}
 			}
+						
+			function clearCanvas(){
+				particleList = [];
+			}
 		</script>
 	</head>
 	<body onload = "init();" style="background-color:black">
@@ -32,6 +39,6 @@
 		<input type="button" value="Start" onclick="start()">
 		<input type="button" value="Stop" onclick="stop()">
 		<input type="button" value="Protodisk" onclick="generateProto()">
-		<input type="button" value="Clear" onclick="clear()">
+		<input type="button" value="Clear" onclick="clearCanvas()">
 	</body>
 </html>

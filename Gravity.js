@@ -90,6 +90,3 @@ function draw(){
 	}
 }
 
-function clear(){
-	particleList = new Array();
-}
