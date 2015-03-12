@@ -12,16 +12,18 @@ var frametime;
 var starttime;
 var width;
 var height;
+var startCoords = [-1,-1];
+var endCoords = [-1,-1];
+var newMass = 1000;
 
 function init(){
-	//particleList[0] = new Particle(1000000,200,300,0,0);
-	//particleList[1] = new Particle(10000,20,20,50,20);
 	var canvas = document.getElementById("canvas");
-	canvas.width = window.innerWidth-10;
-	canvas.height = window.innerHeight *.9 -10;
+	canvas.width = window.innerWidth-30;
+	canvas.height = window.innerHeight-20;
 	width = canvas.width;
 	height = canvas.height;
 	context = canvas.getContext("2d");
+	window.addEventListener('mousedown',mouseDownListener,false);
 }
 
 function main(){
@@ -29,6 +31,36 @@ function main(){
 	integrate();
 	draw();
 	frametime = Date.now()-starttime;
+}
+
+function mouseDownListener(evt){
+	console.log("down");
+	startCoords[0] = evt.clientX;
+	startCoords[1] = evt.clientY;
+	endCoords[0] = evt.clientX;
+	endCoords[1] = evt.clientY
+	window.addEventListener("mousemove", mouseMoveListener, false);
+	window.addEventListener("mouseup", mouseUpListener, false);
+}
+
+function mouseMoveListener(evt){
+	endCoords[0] = evt.clientX;
+	endCoords[1] = evt.clientY;
+}
+
+function mouseUpListener(evt){
+	console.log("up");
+	window.removeEventListener("mousemove", mouseMoveListener);
+	window.removeEventListener("mousemove", mouseUpListener);
+	var p = new Particle(newMass,startCoords[0],startCoords[1],(endCoords[0]-startCoords[0]),(endCoords[1]-startCoords[1]));
+	particleList.push(p);
+	startCoords = [-1,-1];
+	endCoords = [-1,-1];
+}
+
+function setNewMass(m){
+	console.log(m);
+	newMass = m;
 }
 
 function integrate(){
@@ -67,7 +99,8 @@ function integrate(){
 		particleList[i].vy += particleList[i].ay*h;
 		particleList[i].x += particleList[i].vx*h;
 		particleList[i].y += particleList[i].vy*h;
-		if(particleList[i].collided || particleList[i].x < -100 || particleList[i].y < -100){
+		if(particleList[i].collided || particleList[i].x<-50 || particleList[i].y<-50
+						|| particleList[i].x>width+50 || particleList[i].y>height+50){
 			particleList.splice(i,1);
 			i--;
 		}
@@ -78,6 +111,12 @@ function integrate(){
 
 function draw(){
 	context.clearRect(0,0,width,height);
+	context.beginPath();
+	context.moveTo(startCoords[0],startCoords[1]);
+	context.lineTo(endCoords[0],endCoords[1]);
+	context.strokeStyle="blue";
+	context.strokeWidth=2;
+	context.stroke();
 	for(var i = 0; i < particleList.length; i++){
 		var p = particleList[i];
 		context.beginPath();
