@@ -87,6 +87,7 @@
 			}
 						
 			function setSize(size){
+				document.getElementById("mass").value=size.toExponential(1).replace("+","");
 				setNewMass(size);
 			}
 			
@@ -98,9 +99,9 @@
 	<body onload = "init();start();" style="background-color:black">
 		<div class="noselect">
 			Click and drag to add new particles</br></br>
-			<div id="controlbox">
+			<div id="controlbox" style="z-index:4">
 				<table>
-					<tr>Mass:<input type="text" value=1000 class="txt" style="width:50px;"></tr></br>
+					<tr>Mass:<input type="text" value=1000 class="txt" style="width:50px;" id="mass"></tr></br>
 					<tr><button onclick="setSize(1)">Tiny</button></tr></br>
 					<tr><button onclick="setSize(10)">Small</button></tr></br>
 					<tr><button onclick="setSize(100)">Medium</button></tr></br>

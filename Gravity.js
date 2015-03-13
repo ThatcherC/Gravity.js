@@ -15,15 +15,19 @@ var height;
 var startCoords = [-1,-1];
 var endCoords = [-1,-1];
 var newMass = 1000;
+var onControlBox = false;
 
 function init(){
 	var canvas = document.getElementById("canvas");
+	var div = document.getElementById("controlbox");
 	canvas.width = window.innerWidth-30;
 	canvas.height = window.innerHeight-20;
 	width = canvas.width;
 	height = canvas.height;
 	context = canvas.getContext("2d");
 	window.addEventListener('mousedown',mouseDownListener,false);
+	div.onmouseover = function(){onControlBox=true;};
+	div.onmouseout = function(){onControlBox=false;};
 }
 
 function main(){
@@ -34,13 +38,15 @@ function main(){
 }
 
 function mouseDownListener(evt){
-	console.log("down");
-	startCoords[0] = evt.clientX;
-	startCoords[1] = evt.clientY;
-	endCoords[0] = evt.clientX;
-	endCoords[1] = evt.clientY
-	window.addEventListener("mousemove", mouseMoveListener, false);
-	window.addEventListener("mouseup", mouseUpListener, false);
+	if(!onControlBox){
+		console.log("down");
+		startCoords[0] = evt.clientX;
+		startCoords[1] = evt.clientY;
+		endCoords[0] = evt.clientX;
+		endCoords[1] = evt.clientY
+		window.addEventListener("mousemove", mouseMoveListener, false);
+		window.addEventListener("mouseup", mouseUpListener, false);
+	}
 }
 
 function mouseMoveListener(evt){
@@ -51,7 +57,7 @@ function mouseMoveListener(evt){
 function mouseUpListener(evt){
 	console.log("up");
 	window.removeEventListener("mousemove", mouseMoveListener);
-	window.removeEventListener("mousemove", mouseUpListener);
+	window.removeEventListener("mouseup", mouseUpListener);
 	var p = new Particle(newMass,startCoords[0],startCoords[1],(endCoords[0]-startCoords[0]),(endCoords[1]-startCoords[1]));
 	particleList.push(p);
 	startCoords = [-1,-1];
