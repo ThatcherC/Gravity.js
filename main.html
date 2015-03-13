@@ -21,6 +21,7 @@
 			  border: solid #ffffff 1px;
 			  text-decoration: none;
 			  width: 80px;
+			  margin-top:2px;
 			}
 			
 			.txt {
@@ -49,13 +50,21 @@
 				-ms-user-select: none;
 				user-select: none;
 			}
+			#controlbox {
+				padding:5px;
+				padding-left:20px;
+				margin-left:-20px;
+				border: solid #ffffff 1px;
+				border-left-width: 0px;
+				width:80px;
+			}
 		</style>
 		<script>
-			var interval;
+			var interval = -1;
 			var newParticleSize = 100;
 			
 			function start(){
-				if(interval = -1){
+				if(interval == -1){
 					interval = window.setInterval("main();",50);
 				}
 			}
@@ -87,20 +96,22 @@
 		</script>
 	</head>
 	<body onload = "init();start();" style="background-color:black">
-		<div id="controlbox" class="noselect">
-			Click and drag to add new particles</br>
-			<table>
-				<tr>Mass:<input type="text" value=1000 class="txt" style="width:50px;"></tr></br>
-				<tr><button onclick="setSize(1)">Tiny</button></tr></br>
-				<tr><button onclick="setSize(10)">Small</button></tr></br>
-				<tr><button onclick="setSize(100)">Medium</button></tr></br>
-				<tr><button onclick="setSize(1000)">Huge</button></tr></br>
-				<tr><button onclick="setSize(10000)">Enormous</button></tr>
-			</table>
-			<button onclick="start()">Start</button></br>
-			<button onclick="stop()">Stop</button></br>
-			<button onclick="generateProto()">Protodisk</button></br>
-			<button onclick="clearCanvas()">Clear</button></br>
+		<div class="noselect">
+			Click and drag to add new particles</br></br>
+			<div id="controlbox">
+				<table>
+					<tr>Mass:<input type="text" value=1000 class="txt" style="width:50px;"></tr></br>
+					<tr><button onclick="setSize(1)">Tiny</button></tr></br>
+					<tr><button onclick="setSize(10)">Small</button></tr></br>
+					<tr><button onclick="setSize(100)">Medium</button></tr></br>
+					<tr><button onclick="setSize(1000)">Huge</button></tr></br>
+					<tr><button onclick="setSize(10000)">Enormous</button></tr>
+				</table>
+				<button onclick="start()">Start</button></br>
+				<button onclick="stop()">Stop</button></br>
+				<button onclick="generateProto()">Protodisk</button></br>
+				<button onclick="clearCanvas()">Clear</button></br>
+			</div>
 		</div>
 		<canvas id="canvas" style="z-index:-1;position:absolute;left: 0px;top: 0px;"></canvas>
 	</body>
