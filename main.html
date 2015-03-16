@@ -65,7 +65,7 @@
 			
 			function start(){
 				if(interval == -1){
-					interval = window.setInterval("main();",50);
+					interval = window.setInterval("main();",20);
 				}
 			}
 			
@@ -101,7 +101,7 @@
 			Click and drag to add new particles</br></br>
 			<div id="controlbox" style="z-index:4">
 				<table>
-					<tr>Mass:<input type="text" value=1000 class="txt" style="width:50px;" id="mass"></tr></br>
+					<tr>Mass:<input type="text" value="1.0e3" class="txt" style="width:50px;" id="mass"></tr></br>
 					<tr><button onclick="setSize(100)">Tiny</button></tr></br>
 					<tr><button onclick="setSize(1000)">Small</button></tr></br>
 					<tr><button onclick="setSize(10000)">Medium</button></tr></br>
