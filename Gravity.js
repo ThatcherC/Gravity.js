@@ -128,10 +128,17 @@ function draw(){
 		context.beginPath();
 		context.arc(p.x,p.y,p.radius,0,Math.PI*2);
 		context.closePath();
-		context.strokeStyle = "#"+Math.round(p.color).toString(16);
-		context.fillStyle = "#"+Math.round(p.color).toString(16);
-		context.stroke();
+		if(p.radius < 3){
+			context.fillStyle = "#"+Math.round(p.color).toString(16);
+		}else{
+			//I think this code is pretty equivalent to nowykurier's
+			var gradient = context.createRadialGradient(p.x,p.y,p.radius*.75,p.x,p.y,p.radius);
+			gradient.addColorStop(0,"#"+Math.round(p.color).toString(16));
+			gradient.addColorStop(1,'black');
+			context.fillStyle=gradient;
+		}
+		//context.strokeStyle = "#"+Math.round(p.color).toString(16);		//looks better without the stroke
+		//context.stroke();
 		context.fill();
 	}
 }
-
