@@ -7,7 +7,7 @@
 			body {
 				color: #ffffff;
 				font-family: Courier New;
-				font-size: 10px;
+				font-size: 11px;
 			}
 			button {
 			  -webkit-border-radius: 0;
@@ -15,12 +15,12 @@
 			  border-radius: 0px;
 			  font-family: Courier New;
 			  color: #ffffff;
-			  font-size: 10px;
+			  font-size: 11px;
 			  background: #000000;
 			  padding: 5px 5px 5px 5px;
 			  border: solid #ffffff 1px;
 			  text-decoration: none;
-			  width: 80px;
+			  width: 88px;
 			  margin-top:2px;
 			}
 			
@@ -30,11 +30,12 @@
 			  border-radius: 0px;
 			  font-family: Courier New;
 			  color: #ffffff;
-			  font-size: 10px;
+			  font-size: 11px;
 			  background: #000000;
 			  padding: 5px 5px 5px 5px;
 			  border: solid #ffffff 1px;
 			  text-decoration: none;
+			  margin-left:5px;
 			}
 
 			button:hover {
@@ -56,7 +57,27 @@
 				margin-left:-20px;
 				border: solid #ffffff 1px;
 				border-left-width: 0px;
-				width:80px;
+				width:88px;
+			}
+			#homebox {
+				font-size:20px;
+				position:absolute;
+				right:10px;
+				top:0px;
+				padding:5px;
+				padding-top:10px;
+				margin-top:-10px;
+				padding-right:10px;
+				margin-right:-10px;
+				padding-left:10px;
+				border:solid #ffffff 1px;
+				border-right-width:0px;
+			}
+			a:link {
+				color:#0080FF;
+			}
+			a:visited {
+				color:#0000FF;
 			}
 		</style>
 		<script>
@@ -95,10 +116,19 @@
 				particleList = [];
 			}
 		</script>
+		<script>
+  			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  			ga('create', 'UA-61036065-1', 'auto');
+			ga('send', 'pageview');
+		</script>
 	</head>
 	<body onload = "init();start();" style="background-color:black">
 		<div class="noselect">
-			Inspired by the classic <a href="www.nowykurier.com/toys/gravity/gravity.html">Gravity Toy</a> and rewritten in Javascript.</br>
+			Inspired by the classic <a href="http://www.nowykurier.com/toys/gravity/gravity.html">Gravity Toy</a> and rewritten in Javascript.</br>
 			Click and drag to add new particles</br></br>
 			<div id="controlbox" style="z-index:4">
 				<table>
@@ -116,5 +146,6 @@
 			</div>
 		</div>
 		<canvas id="canvas" style="z-index:-1;position:absolute;left: 0px;top: 0px;"></canvas>
+		<div id="homebox"><a href='/'>Home</a></div>
 	</body>
 </html>
