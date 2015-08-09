@@ -16,6 +16,8 @@ var startCoords = [-1,-1];
 var endCoords = [-1,-1];
 var newMass = 1000;
 var onControlBox = false;
+var shiftDown = false;
+var particleShift = [0,0];
 
 function init(){
 	var canvas = document.getElementById("canvas");
@@ -39,7 +41,7 @@ function main(){
 
 function mouseDownListener(evt){
 	if(!onControlBox){
-		console.log("down");
+		shiftDown = evt.shiftKey;
 		startCoords[0] = evt.clientX;
 		startCoords[1] = evt.clientY;
 		endCoords[0] = evt.clientX;
@@ -55,11 +57,17 @@ function mouseMoveListener(evt){
 }
 
 function mouseUpListener(evt){
-	console.log("up");
 	window.removeEventListener("mousemove", mouseMoveListener);
 	window.removeEventListener("mouseup", mouseUpListener);
-	var p = new Particle(newMass,startCoords[0],startCoords[1],(endCoords[0]-startCoords[0]),(endCoords[1]-startCoords[1]));
-	particleList.push(p);
+	//if we started and ended with no shift key
+	if(!evt.shiftKey && !shiftDown){
+		var p = new Particle(newMass,startCoords[0],startCoords[1],(endCoords[0]-startCoords[0]),(endCoords[1]-startCoords[1]));
+		particleList.push(p);
+	}
+	//if we started and ended with both shiftKeys
+	if(evt.shiftKey && shiftDown){
+		particleShift=[(endCoords[0]-startCoords[0]),(endCoords[1]-startCoords[1])];
+	}
 	startCoords = [-1,-1];
 	endCoords = [-1,-1];
 }
@@ -103,8 +111,8 @@ function integrate(){
 	for(var i = 0; i < particleList.length; i++){
 		particleList[i].vx += particleList[i].ax*h;
 		particleList[i].vy += particleList[i].ay*h;
-		particleList[i].x += particleList[i].vx*h;
-		particleList[i].y += particleList[i].vy*h;
+		particleList[i].x += particleList[i].vx*h+particleShift[0];
+		particleList[i].y += particleList[i].vy*h+particleShift[1];
 		if(particleList[i].collided || particleList[i].x<-50 || particleList[i].y<-50
 						|| particleList[i].x>width+50 || particleList[i].y>height+50){
 			particleList.splice(i,1);
@@ -112,7 +120,7 @@ function integrate(){
 		}
 	}
 	Array.prototype.push.apply(particleList,newParticleList);
-	
+	particleShift = [0,0];
 }
 
 function draw(){
