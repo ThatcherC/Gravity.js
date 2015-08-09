@@ -23,7 +23,7 @@
 			  width: 88px;
 			  margin-top:2px;
 			}
-			
+
 			.txt {
 			  -webkit-border-radius: 0;
 			  -moz-border-radius: 0;
@@ -83,18 +83,18 @@
 		<script>
 			var interval = -1;
 			var newParticleSize = 100;
-			
+
 			function start(){
 				if(interval == -1){
 					interval = window.setInterval("main();",20);
 				}
 			}
-			
+
 			function stop(){
 				clearInterval(interval);
 				interval = -1;
 			}
-			
+
 			function generateProto(){
 				for (var i = 0; i < 500; i++){
 					var rand = Math.random()*2*Math.PI;
@@ -106,12 +106,12 @@
 					particleList.push(particle);
 				}
 			}
-						
+
 			function setSize(size){
 				document.getElementById("mass").value=size.toExponential(1).replace("+","");
 				setNewMass(size);
 			}
-			
+
 			function clearCanvas(){
 				particleList = [];
 			}
@@ -129,7 +129,7 @@
 	<body onload = "init();start();" style="background-color:black">
 		<div class="noselect">
 			Inspired by the classic <a href="http://www.nowykurier.com/toys/gravity/gravity.html">Gravity Toy</a> and rewritten in Javascript.</br>
-			Click and drag to add new particles</br></br>
+			Click and drag to add new particles. Hold shift and drag to translate.</br></br>
 			<div id="controlbox" style="z-index:4">
 				<table>
 					<tr>Mass:<input type="text" value="1.0e3" class="txt" style="width:50px;" id="mass"></tr></br>
